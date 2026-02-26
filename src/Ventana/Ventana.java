@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -20,7 +22,7 @@ public class Ventana extends JFrame {
 	public Ventana() {
 		//ventana
 		this.setVisible(true);
-		this.setSize(1200, 1000);
+		this.setSize(1200, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setLocationRelativeTo(null);
 		this.setMinimumSize(new Dimension(200,200));
@@ -29,7 +31,9 @@ public class Ventana extends JFrame {
 		this.setBackground(Color.BLACK);
 		this.setLocation(100,100);
 		this.setLayout(null);
-		
+	}
+	
+	public void login() {
 		//panel
 		JPanel contenedor = new JPanel();
 		contenedor.setOpaque(true);
@@ -68,8 +72,10 @@ public class Ventana extends JFrame {
 		
 		//si no funciona el texto
 		contenedor.repaint();
-		contenedor.revalidate();
-		
+		//contenedor.revalidate();
+	}
+	
+	public void registro() {
 		//contenedor registro
 		JPanel register_container = new JPanel();
 		register_container.setSize(500,500);
@@ -122,6 +128,48 @@ public class Ventana extends JFrame {
 		register_container.add(list);
 		
 		register_container.repaint();
+	}
+	
+	public void users() {
+		JPanel users =new JPanel();
+		users.setBounds(100,50, 1000,500);
+		users.setBackground(Color.WHITE);
+		users.setLayout(null);
+		this.add(users);
+		
+		//Label
+		JLabel users_tittle =new JLabel("USUARIOS");
+		users_tittle.setBounds(150, 10,200, 30);
+		users_tittle.setOpaque(true);
+		users_tittle.setBackground(Color.BLACK);
+	    users_tittle.setFont(new Font("Arial",Font.BOLD,22));
+		users_tittle.setHorizontalAlignment(JLabel.CENTER);
+		users.add(users_tittle);
+		
+		JButton export = new JButton("Exportar");
+		export.setBounds(30,120,100,40);
+		users.add(export);
+		
+		JButton add = new JButton("Agregar");
+		add.setBounds(130,120,100,40);
+		users.add(add);
+		
+		String [] table_head = {"No. Control","Nombre","Apellidos","Semestre","Promedio","Acciones"};
+		
+		String [][] table_content= {
+				{"20231001","juan","perez garcia","2","90","Editar"},
+				{"20231002","maria","gomez perez","4","100","Editar"},
+				{"20231003","jose","palos gallardo","8","75","Editar"},
+				{"20231004","pedro","cota meza","6","80","Editar"}
+		};
+		
+		JTable users_table= new JTable(table_content, table_head);
+		JScrollPane scrollPane= new JScrollPane(users_table);
+		
+		scrollPane.setBounds(30,180,800,100);
+		users.add(scrollPane);
+		
+		//users.repaint();
 	}
 }
 
