@@ -72,7 +72,7 @@ public class Ventana extends JFrame {
 		
 		this.setJMenuBar(barra);
 		
-		this.calculadora();
+		this.calculadora_interes();
 		
 		this.setVisible(true);
 	}
@@ -323,6 +323,89 @@ public class Ventana extends JFrame {
 	        panelBotones.add(boton);
 	    }
 	    panelCalc.add(panelBotones, BorderLayout.CENTER);
+	}
+	
+	public void calculadora_interes() {
+		//Panel principal
+		JPanel test_panel = new JPanel();
+		test_panel.setSize(500, 500);
+		test_panel.setLocation(100, 50);
+		test_panel.setBackground(Color.white);
+		test_panel.setLayout(new BorderLayout(100,100));
+		this.add(test_panel);
+		
+		//Label
+		JLabel tittle =new JLabel("INTERESES");
+		tittle.setBounds(150, 10,200, 30);
+		tittle.setFont(new Font("Arial",Font.BOLD,22));
+		tittle.setHorizontalAlignment(JLabel.LEFT);
+		test_panel.add(tittle, BorderLayout.NORTH);
+		
+		//Panel encabezado
+		JPanel encabezado = new JPanel();
+		encabezado.setSize(200, 100);
+		encabezado.setLocation(100, 50);
+		encabezado.setBackground(Color.GREEN);
+		encabezado.setLayout(new BorderLayout(100,100));
+		test_panel.add(encabezado);
+		
+		//Label
+		JLabel data_tax =new JLabel("CALCULAR INTERES");
+		data_tax.setBounds(150, 10,200, 30);
+		data_tax.setFont(new Font("Arial",Font.BOLD,22));
+		data_tax.setHorizontalAlignment(JLabel.LEFT);
+		encabezado.add(data_tax, BorderLayout.NORTH);
+		
+		//panel central
+		JPanel center_panel = new JPanel();
+		center_panel.setBackground(Color.GREEN);
+		GridLayout mi_layout=new GridLayout(4,2);
+		mi_layout.setVgap(50);
+		mi_layout.setHgap(50);
+		center_panel.setLayout(mi_layout);
+		test_panel.add(center_panel, BorderLayout.CENTER);
+		
+		JLabel capital=new JLabel("Capital: ");
+		center_panel.add(capital);
+		JTextField campo1=new JTextField("1500");
+		center_panel.add(campo1);
+		
+		JLabel tiempo=new JLabel("Tiempo: ");
+		center_panel.add(tiempo);
+		JTextField campo2=new JTextField("2");
+		center_panel.add(campo2);
+		
+		JLabel Tax=new JLabel("Tasa de interes: ");
+		center_panel.add(Tax);
+		JTextField campo3=new JTextField("0.5");
+		center_panel.add(campo3);
+		
+		JButton calcular=new JButton("Calcular");
+		center_panel.add(calcular);
+		
+		JButton cancelar=new JButton("Cancelar");
+		center_panel.add(cancelar);
+		
+		//panel Sur
+		JPanel south=new JPanel();
+		south.setBackground(Color.pink);
+		GridLayout resultados=new GridLayout(2,2);
+		mi_layout.setVgap(50);
+		mi_layout.setHgap(50);
+		center_panel.setLayout(resultados);
+		test_panel.add(south, BorderLayout.SOUTH);
+		
+		JLabel interes=new JLabel("interes: ");
+		south.add(capital);
+		JTextField campo4=new JTextField("1500");
+		south.add(campo4);
+		
+		JLabel monto=new JLabel("monto: ");
+		south.add(tiempo);
+		JTextField campo5=new JTextField("2");
+		south.add(campo5);
+		
+		
 	}
 
 }
