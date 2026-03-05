@@ -1,9 +1,15 @@
 package Ventana;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Label;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 
 public class Ventana extends JFrame {
@@ -30,7 +37,7 @@ public class Ventana extends JFrame {
 		//this.setLocationRelativeTo(null);
 		this.setMinimumSize(new Dimension(200,200));
 		this.setMaximumSize(new Dimension(800,800));
-		this.setTitle("hola");
+		this.setTitle("ventana");
 		this.setBackground(Color.BLACK);
 		this.setLocation(100,100);
 		this.setLayout(null);
@@ -65,7 +72,7 @@ public class Ventana extends JFrame {
 		
 		this.setJMenuBar(barra);
 		
-		this.users();
+		this.calculadora();
 		
 		this.setVisible(true);
 	}
@@ -109,7 +116,7 @@ public class Ventana extends JFrame {
 		
 		//si no funciona el texto
 		contenedor.repaint();
-		//contenedor.revalidate();
+		contenedor.revalidate();
 	}
 	
 	public void registro() {
@@ -208,5 +215,115 @@ public class Ventana extends JFrame {
 		
 		//users.repaint();
 	}
+	
+	public void test() {
+		JPanel test_panel = new JPanel();
+		test_panel.setSize(1000, 500);
+		test_panel.setLocation(100, 50);
+		test_panel.setBackground(Color.white);
+		test_panel.setLayout(new BorderLayout(100,100));
+		this.add(test_panel);
+		
+		JLabel users_title = new JLabel("USUARIOS"); 
+		users_title.setFont(new Font("Arial",Font.BOLD,22));
+		users_title.setBackground(Color.decode("#F27A61"));
+		test_panel.add(users_title,BorderLayout.NORTH);
+		
+		JLabel users_title2 = new JLabel("USUARIOS2"); 
+		users_title2.setFont(new Font("Arial",Font.BOLD,22));
+		users_title2.setBackground(Color.decode("#F27A61"));
+		test_panel.add(users_title2,BorderLayout.LINE_START);
+		
+		JLabel users_title3 = new JLabel("USUARIOS"); 
+		users_title3.setFont(new Font("Arial",Font.BOLD,22));
+		users_title3.setBackground(Color.decode("#F27A61"));
+		test_panel.add(users_title3,BorderLayout.LINE_END);
+		
+		
+		JPanel center_panel = new JPanel(); 
+		center_panel.setBackground(Color.yellow);
+		center_panel.setLayout(new GridLayout(4,4));
+		
+		center_panel.add(new JButton("1"));
+		center_panel.add(new JButton("2"));
+		center_panel.add(new JButton("3"));
+		center_panel.add(new JButton("4"));
+		center_panel.add(new JButton("5"));
+		center_panel.add(new JButton("6"));
+		center_panel.add(new JButton("1"));
+		center_panel.add(new JLabel("2"));
+		center_panel.add(new JButton("3"));
+		center_panel.add(new JButton("4"));
+		center_panel.add(new JButton("5"));
+		center_panel.add(new JButton("6"));
+		center_panel.add(new JTextField("3"));
+		center_panel.add(new JButton("4"));
+		center_panel.add(new JButton("5"));
+		center_panel.add(new JButton("6"));
+		
+		test_panel.add(center_panel,BorderLayout.CENTER);
+		
+		
+		JPanel south_panel = new JPanel();  
+		south_panel.setBackground(Color.green);
+		south_panel.setLayout(new FlowLayout(5,10,10));
+		
+		south_panel.applyComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		
+		south_panel.add(new JButton("1"));
+		south_panel.add(new JButton("2"));
+		south_panel.add(new JButton("3"));
+		south_panel.add(new JButton("4"));
+		south_panel.add(new JButton("5"));
+		
+		test_panel.add(south_panel,BorderLayout.SOUTH);;
+	}
+		
+	public void calculadora() {
+	    JPanel panelCalc = new JPanel();
+	    panelCalc.setBounds(100, 50, 350, 450);
+	    panelCalc.setBackground(Color.darkGray);
+	    panelCalc.setLayout(new BorderLayout(10,10));
+	    this.add(panelCalc);
+
+	    // Pantalla
+	    JLabel pantalla = new JLabel("0", SwingConstants.RIGHT);
+	    pantalla.setFont(new Font("Consolas", Font.BOLD, 32));
+	    pantalla.setOpaque(true);
+	    pantalla.setBackground(Color.BLACK);
+	    pantalla.setForeground(Color.GREEN);
+	    panelCalc.add(pantalla, BorderLayout.NORTH);
+
+	    // Botonera
+	    JPanel panelBotones = new JPanel(new GridLayout(5,4,10,10));
+	    String[] botones = {
+	        "MC","M+","/","*",
+	        "7","8","9","+",
+	        "4","5","6","-",
+	        "1","2","3","=",
+	        "0",".","<--","C"
+	    };
+
+	    for (String texto : botones) {
+	        JButton boton = new JButton(texto);
+	        boton.setFont(new Font("Arial", Font.BOLD, 18));
+	        boton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+
+	        if (texto.matches("[0-9]")) {
+	            boton.setBackground(Color.LIGHT_GRAY);
+	        } else if ("+-*/=".contains(texto)) {
+	            boton.setBackground(Color.blue);
+	            boton.setForeground(Color.WHITE);
+	        } else if (texto.equals("MC") || texto.equals("M+") || texto.equals("MR") || texto.equals("M-")) {
+	            boton.setBackground(Color.RED);
+	            boton.setForeground(Color.WHITE);
+	        } else {
+	            boton.setBackground(Color.ORANGE);
+	        }
+	        panelBotones.add(boton);
+	    }
+	    panelCalc.add(panelBotones, BorderLayout.CENTER);
+	}
+
 }
 
