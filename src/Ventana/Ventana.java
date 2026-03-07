@@ -11,6 +11,7 @@ import java.awt.Label;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -38,6 +39,9 @@ public class Ventana extends JFrame {
 		this.setMinimumSize(new Dimension(200,200));
 		this.setMaximumSize(new Dimension(800,800));
 		this.setTitle("ventana");
+		// Cargar el ícono desde un archivo en tu proyecto
+        ImageIcon icono = new ImageIcon("src/tax.png");
+        setIconImage(icono.getImage());
 		this.setBackground(Color.BLACK);
 		this.setLocation(100,100);
 		this.setLayout(null);
@@ -331,81 +335,57 @@ public class Ventana extends JFrame {
 		test_panel.setSize(500, 500);
 		test_panel.setLocation(100, 50);
 		test_panel.setBackground(Color.white);
-		test_panel.setLayout(new BorderLayout(100,100));
-		this.add(test_panel);
+		test_panel.setLayout(new BorderLayout(20,20));
+		this.add(test_panel, BorderLayout.CENTER);
 		
 		//Label
 		JLabel tittle =new JLabel("INTERESES");
-		tittle.setBounds(150, 10,200, 30);
 		tittle.setFont(new Font("Arial",Font.BOLD,22));
-		tittle.setHorizontalAlignment(JLabel.LEFT);
 		test_panel.add(tittle, BorderLayout.NORTH);
 		
-		//Panel encabezado
-		JPanel encabezado = new JPanel();
-		encabezado.setSize(200, 100);
-		encabezado.setLocation(100, 50);
-		encabezado.setBackground(Color.GREEN);
-		encabezado.setLayout(new BorderLayout(100,100));
-		test_panel.add(encabezado);
+		// Panel de entrada (Centro/Oeste) con GridLayout
+        JPanel entrada = new JPanel(new GridLayout(3,2,20,20));
+        entrada.setBackground(Color.GREEN);
+
+        entrada.add(new JLabel("Capital: "));
+        JTextField campoCapital = new JTextField("1500");
+        entrada.add(campoCapital);
+
+        entrada.add(new JLabel("Tiempo: "));
+        JTextField campoTiempo = new JTextField("2");
+        entrada.add(campoTiempo);
+
+        entrada.add(new JLabel("Tasa de interés: "));
+        JTextField campoTasa = new JTextField("0.5");
+        entrada.add(campoTasa);
+
+        test_panel.add(entrada, BorderLayout.WEST);
 		
-		//Label
-		JLabel data_tax =new JLabel("CALCULAR INTERES");
-		data_tax.setBounds(150, 10,200, 30);
-		data_tax.setFont(new Font("Arial",Font.BOLD,22));
-		data_tax.setHorizontalAlignment(JLabel.LEFT);
-		encabezado.add(data_tax, BorderLayout.NORTH);
+     // Panel de botones (Centro) con FlowLayout
+        JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        botones.setBackground(Color.GREEN);
+        ImageIcon cal = new ImageIcon("src/contabilidad.png");
+        ImageIcon cancel = new ImageIcon("src/cancelar.png");
+        JButton calcular = new JButton("Calcular",cal);
+        JButton cancelar = new JButton("Cancelar",cancel);
+        botones.add(calcular);
+        botones.add(cancelar);
+
+        test_panel.add(botones, BorderLayout.CENTER);
 		
-		//panel central
-		JPanel center_panel = new JPanel();
-		center_panel.setBackground(Color.GREEN);
-		GridLayout mi_layout=new GridLayout(4,2);
-		mi_layout.setVgap(50);
-		mi_layout.setHgap(50);
-		center_panel.setLayout(mi_layout);
-		test_panel.add(center_panel, BorderLayout.CENTER);
-		
-		JLabel capital=new JLabel("Capital: ");
-		center_panel.add(capital);
-		JTextField campo1=new JTextField("1500");
-		center_panel.add(campo1);
-		
-		JLabel tiempo=new JLabel("Tiempo: ");
-		center_panel.add(tiempo);
-		JTextField campo2=new JTextField("2");
-		center_panel.add(campo2);
-		
-		JLabel Tax=new JLabel("Tasa de interes: ");
-		center_panel.add(Tax);
-		JTextField campo3=new JTextField("0.5");
-		center_panel.add(campo3);
-		
-		JButton calcular=new JButton("Calcular");
-		center_panel.add(calcular);
-		
-		JButton cancelar=new JButton("Cancelar");
-		center_panel.add(cancelar);
-		
-		//panel Sur
-		JPanel south=new JPanel();
-		south.setBackground(Color.pink);
-		GridLayout resultados=new GridLayout(2,2);
-		mi_layout.setVgap(50);
-		mi_layout.setHgap(50);
-		center_panel.setLayout(resultados);
-		test_panel.add(south, BorderLayout.SOUTH);
-		
-		JLabel interes=new JLabel("interes: ");
-		south.add(capital);
-		JTextField campo4=new JTextField("1500");
-		south.add(campo4);
-		
-		JLabel monto=new JLabel("monto: ");
-		south.add(tiempo);
-		JTextField campo5=new JTextField("2");
-		south.add(campo5);
-		
-		
+     // Panel de resultados (Sur) con GridLayout
+        JPanel resultados = new JPanel(new GridLayout(2,2,20,20));
+        resultados.setBackground(Color.PINK);
+
+        resultados.add(new JLabel("Interés: "));
+        JTextField campoInteres = new JTextField("315.00");
+        resultados.add(campoInteres);
+
+        resultados.add(new JLabel("Monto: "));
+        JTextField campoMonto = new JTextField("1815");
+        resultados.add(campoMonto);
+
+        test_panel.add(resultados, BorderLayout.SOUTH);
 	}
 
 }
