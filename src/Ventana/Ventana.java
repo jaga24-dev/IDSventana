@@ -83,12 +83,32 @@ public class Ventana extends JFrame {
 		submenu.add(menuItem);
 		archivo.add(submenu);
 		
+		//barra navegacion de cuenta
 		this.setJMenuBar(barra);
+		JMenu cuenta= new JMenu("Cuenta");
+		
+		JMenuItem login= new JMenuItem("Acceder");
+		JMenuItem register= new JMenuItem("Registrarse");
+		
+		cuenta.add(login);
+		cuenta.add(register);
+		
+		barra.add(cuenta);
+		
+		login.addActionListener(e ->{
+			this.router("login");
+		});
+		
+		register.addActionListener(e ->{
+			this.router("registro");
+		});
+		
+
 		
 		//this.calculadora_interes();
 		//this.pintar();
-		this.login();
-		this.registro();
+		this.router("login");
+		//this.registro();
 		
 		this.setVisible(true);
 	}
@@ -98,7 +118,7 @@ public class Ventana extends JFrame {
 		JPanel contenedor = new JPanel();
 		contenedor.setOpaque(true);
 		contenedor.setBackground(Color.gray);
-		contenedor.setSize(500,500);
+		contenedor.setSize(1160,610);
 		contenedor.setLocation(50, 50);
 		contenedor.setLayout(null);
 		
@@ -166,6 +186,19 @@ public class Ventana extends JFrame {
 					userpass.setBorder(BorderFactory.createLineBorder(Color.green, 3, true));
 				
 			}
+		});
+		
+		//Boton
+		JButton registro = new JButton("¿Aun no tienes cuenta?");
+		registro.setLocation(200, 460);
+		registro.setSize(200, 50);
+		registro.setFont(new Font("Arial",Font.BOLD,22));
+		contenedor.add(registro);
+		
+		registro.addActionListener(e ->{
+			System.out.println("Hola");
+			System.out.println(e);
+			this.router("registro");
 		});
 		
 		//si no funciona el texto
@@ -269,7 +302,7 @@ public class Ventana extends JFrame {
 				
 		// Botón 
 		JButton crearCuenta = new JButton("Crear cuenta"); 
-		crearCuenta.setBounds(150, 440, 200, 40);
+		crearCuenta.setBounds(100, 440, 200, 40);
 		crearCuenta.setFont(new Font("Arial", Font.BOLD, 20));
 		crearCuenta.setBackground(Color.YELLOW); 
 		crearCuenta.setForeground(Color.BLACK); 
@@ -311,6 +344,17 @@ public class Ventana extends JFrame {
 		            healthy.setBorderPainted(true);
 		        }
 			}
+		});
+		
+		//boton para regresar al login
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.setLocation(310, 440);
+		cancelar.setSize(150, 40);
+		cancelar.setFont(new Font("Arial",Font.BOLD,22));
+		register_container.add(cancelar);
+		
+		cancelar.addActionListener(e -> {
+			this.router("login");
 		});
 		
 		register_container.repaint();
@@ -573,6 +617,20 @@ public class Ventana extends JFrame {
         pane.setSize(1200, 700);
         pane.setLocation(0, 0);
         this.add(pane);
+	}
+	
+	public void router(String target) {		
+		this.getContentPane().removeAll();
+		
+		if(target.equals("login")) 
+			this.login();
+		
+		if(target.equals("registro")) 
+			this.registro();
+		
+		this.setVisible(true);
+		this.repaint();
+		this.revalidate();
 	}
 }
 
