@@ -211,6 +211,17 @@ public class Ventana extends JFrame {
 		btnNewButton.setBounds(36, 413, 341, 37);
 		panel.add(btnNewButton);
 		
+		//boton para regresar al login
+		JButton volver = new JButton("Volver");
+		volver.setLocation(36, 460);
+		volver.setSize(341, 37);
+		volver.setFont(new Font("Arial",Font.BOLD,22));
+		panel.add(volver);
+				
+		volver.addActionListener(e -> {
+			this.router("login");
+		});
+		
 		JLabel lblNewLabel_1 = new JLabel("Sabiduría como meta, patria como destino ");
 		lblNewLabel_1.setBounds(69, 73, 308, 16);
 		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
@@ -369,7 +380,7 @@ public class Ventana extends JFrame {
 		});
 		
 		//boton para regresar al login
-		JButton cancelar = new JButton("Cancelar");
+		JButton cancelar = new JButton("Volver");
 		cancelar.setLocation(310, 440);
 		cancelar.setSize(150, 40);
 		cancelar.setFont(new Font("Arial",Font.BOLD,22));
@@ -694,6 +705,20 @@ public class Ventana extends JFrame {
 		title_alta.setHorizontalAlignment(JLabel.CENTER);
 		contenedor.add(title_alta);
 		this.add(contenedor);
+		
+		JTextField nombre = new JTextField("Nombre");
+	    nombre.setBounds(100, 80, 300, 30);
+	    contenedor.add(nombre);
+
+	    JButton guardar = new JButton("Guardar");
+	    guardar.setBounds(100, 130, 150, 40);
+	    contenedor.add(guardar);
+
+	    JButton volver = new JButton("Volver");
+	    volver.setBounds(260, 130, 150, 40);
+	    volver.addActionListener(e -> router("login"));
+	    contenedor.add(volver);
+		
 	}
 	public void baja() {
 		JPanel contenedor = new JPanel();
@@ -737,6 +762,19 @@ public class Ventana extends JFrame {
 		title_login.setHorizontalAlignment(JLabel.CENTER);
 		contenedor.add(title_login);
 		this.add(contenedor);
+		
+		JTextField buscar = new JTextField("ID Usuario");
+	    buscar.setBounds(100, 80, 300, 30);
+	    contenedor.add(buscar);
+
+	    JButton consultar = new JButton("Consultar");
+	    consultar.setBounds(100, 130, 150, 40);
+	    contenedor.add(consultar);
+
+	    JButton volver = new JButton("Volver");
+	    volver.setBounds(260, 130, 150, 40);
+	    volver.addActionListener(e -> router("login"));
+	    contenedor.add(volver);
 	}
 	
 	public void help_user() {
@@ -759,6 +797,16 @@ public class Ventana extends JFrame {
 		title_login.setHorizontalAlignment(JLabel.CENTER);
 		contenedor.add(title_login);
 		this.add(contenedor);
+		
+		JTextArea texto = new JTextArea("Para crear un usuario, llena el formulario de registro...");
+	    texto.setBounds(50, 80, 400, 200);
+	    texto.setEditable(false);
+	    contenedor.add(texto);
+
+	    JButton volver = new JButton("Volver");
+	    volver.setBounds(200, 300, 150, 40);
+	    volver.addActionListener(e -> router("login"));
+	    contenedor.add(volver);
 	}
 	
 	public void help_system() {
@@ -781,6 +829,16 @@ public class Ventana extends JFrame {
 		title_login.setHorizontalAlignment(JLabel.CENTER);
 		contenedor.add(title_login);
 		this.add(contenedor);
+		
+		JTextArea texto = new JTextArea("Ingresa tu correo y contraseña en la vista de login...");
+	    texto.setBounds(50, 80, 400, 200);
+	    texto.setEditable(false);
+	    contenedor.add(texto);
+
+	    JButton volver = new JButton("Volver");
+	    volver.setBounds(200, 300, 150, 40);
+	    volver.addActionListener(e -> router("login"));
+	    contenedor.add(volver);
 	}
 	
 	public void help_pass() {
@@ -803,6 +861,16 @@ public class Ventana extends JFrame {
 		title_login.setHorizontalAlignment(JLabel.CENTER);
 		contenedor.add(title_login);
 		this.add(contenedor);
+		
+		JTextArea texto = new JTextArea("Usa la opción de recuperación de cuenta para restablecer tu contraseña...");
+	    texto.setBounds(50, 80, 400, 200);
+	    texto.setEditable(false);
+	    contenedor.add(texto);
+
+	    JButton volver = new JButton("Volver");
+	    volver.setBounds(200, 300, 150, 40);
+	    volver.addActionListener(e -> router("login"));
+	    contenedor.add(volver);
 	}
 	public void menu() {
 		JMenuBar barra=new JMenuBar();
@@ -837,8 +905,8 @@ public class Ventana extends JFrame {
 		this.setJMenuBar(barra);
 		JMenu cuenta_menu= new JMenu("Cuenta");
 		
-		JMenuItem login_item= new JMenuItem("Acceder");
-		JMenuItem register_item= new JMenuItem("Registrarse");
+		JMenuItem login_item= new JMenuItem("LoginView");
+		JMenuItem register_item= new JMenuItem("RegistroView");
 		
 		login_item.addActionListener(e ->{
 			this.router("login");
@@ -848,7 +916,7 @@ public class Ventana extends JFrame {
 			this.router("registro");
 		});
 		
-		JMenuItem recover_item = new JMenuItem("Recuperación de cuenta");
+		JMenuItem recover_item = new JMenuItem("RecuperacionView");
 		recover_item.addActionListener(e->{
 			this.router("recovery");
 		});
@@ -861,30 +929,30 @@ public class Ventana extends JFrame {
 		
 		//menu usuario
 		JMenu Usuario_menu= new JMenu("Usuario");
-		JMenuItem alta_item= new JMenuItem("Alta");
-		JMenuItem baja_item= new JMenuItem("Baja");
+		JMenuItem alta_item= new JMenuItem("AltaUsuarioView");
+		//JMenuItem baja_item= new JMenuItem("Baja");
 		
 		alta_item.addActionListener(e ->{
 			this.router("alta");
 		});
 		
-		baja_item.addActionListener(e ->{
+		/*baja_item.addActionListener(e ->{
 			this.router("baja");
-		});
+		});*/
 		
-		JMenuItem consultar_item = new JMenuItem("Consultar");
+		JMenuItem consultar_item = new JMenuItem("ConsultarUsuarioView");
 		consultar_item.addActionListener(e->{
 			this.router("consultar");
 		});
 		Usuario_menu.add(alta_item);
-		Usuario_menu.add(baja_item);
+		//Usuario_menu.add(baja_item);
 		Usuario_menu.add(consultar_item);
 		barra.add(Usuario_menu);
 		
 		//menu ayuda
 		JMenu Ayuda_menu= new JMenu("Ayuda");
-		JMenuItem helpuser_item= new JMenuItem("¿Cómo crear un usuario?");
-		JMenuItem helpsystem_item= new JMenuItem("¿Cómo acceder al sistema?");
+		JMenuItem helpuser_item= new JMenuItem("AyudaCrearUsuarioView");
+		JMenuItem helpsystem_item= new JMenuItem("AyudaAccesoSistemaView");
 				
 		helpuser_item.addActionListener(e ->{
 			this.router("help_user");
@@ -894,7 +962,7 @@ public class Ventana extends JFrame {
 			this.router("help_system");
 		});
 				
-		JMenuItem helppass_item = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
+		JMenuItem helppass_item = new JMenuItem("AyudaRecuperarContraseñaView");
 		helppass_item.addActionListener(e->{
 			this.router("help_pass");
 		});
