@@ -10,12 +10,16 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 public class Ventana3 {
 
 	private JFrame frame;
-	private JButton[] casillas = new JButton[9];
+	private BotonGato[][] tablero = new BotonGato[3][3];
+    private boolean turnoX = true;
+    private JLabel lblX, lblO;
+    private int puntosX = 0, puntosO = 0;
 	/**
 	 * Launch the application.
 	 */
@@ -58,9 +62,9 @@ public class Ventana3 {
         panelSuperior.add(lblTiempo, BorderLayout.NORTH);
 
         JPanel marcador = new JPanel(new GridLayout(1, 2));
-        JLabel lblX = new JLabel("X: 0", SwingConstants.CENTER);
+        lblX = new JLabel("X: 0", SwingConstants.CENTER);
         lblX.setFont(new Font("Arial", Font.BOLD, 18));
-        JLabel lblO = new JLabel("O: 0", SwingConstants.CENTER);
+        lblO = new JLabel("O: 0", SwingConstants.CENTER);
         lblO.setFont(new Font("Arial", Font.BOLD, 18));
         marcador.add(lblX);
         marcador.add(lblO);
@@ -71,19 +75,86 @@ public class Ventana3 {
         panelTablero.setBackground(Color.LIGHT_GRAY);
         frame.add(panelTablero, BorderLayout.CENTER);
 
-        for (int i = 0; i < 9; i++) {
-            casillas[i] = new JButton("");
-            casillas[i].setFont(new Font("Arial", Font.BOLD, 36));
-            panelTablero.add(casillas[i]);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                tablero[i][j] = new BotonGato(i, j);
+                int fila = i, col = j;
+                tablero[i][j].addActionListener(e -> jugar(tablero[fila][col]));
+                panelTablero.add(tablero[i][j]);
+            }
         }
 
         // Panel inferior con botón reiniciar
         JPanel panelInferior = new JPanel();
-        frame.add(panelInferior, BorderLayout.SOUTH);
-
         JButton btnReiniciar = new JButton("Reiniciar");
         btnReiniciar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnReiniciar.addActionListener(e -> reiniciarTablero());
         panelInferior.add(btnReiniciar);
+        frame.add(panelInferior, BorderLayout.SOUTH);
 	}
+	
+	private void jugar(BotonGato boton) {
+        String jugador;
+		if(turnoX) jugador = "X";
+		else jugador = "O";
+        boton.marcar(jugador);
 
+        if (verificarGanador(jugador)) {
+            if (jugador.equals("X")) {
+                puntosX++;
+                lblX.setText("X: " + puntosX);
+            } else {
+                puntosO++;
+                lblO.setText("O: " + puntosO);
+            }
+            JOptionPane.showMessageDialog(frame, "¡Ganó " + jugador + "!");
+            reiniciarTablero();
+            return;
+        }
+
+        if (tableroLleno()) {
+            JOptionPane.showMessageDialog(frame, "¡Empate!");
+            reiniciarTablero();
+            return;
+        }
+        turnoX = !turnoX; // cambiar turno
+    }
+	
+	private boolean verificarGanador(String jugador) {
+        // filas y columnas
+        for (int i = 0; i < 3; i++) {
+            if (tablero[i][0].getEstado().equals(jugador) &&
+                tablero[i][1].getEstado().equals(jugador) &&
+                tablero[i][2].getEstado().equals(jugador)) return true;
+
+            if (tablero[0][i].getEstado().equals(jugador) &&
+                tablero[1][i].getEstado().equals(jugador) &&
+                tablero[2][i].getEstado().equals(jugador)) return true;
+        }
+        // diagonales
+        if (tablero[0][0].getEstado().equals(jugador) &&
+            tablero[1][1].getEstado().equals(jugador) &&
+            tablero[2][2].getEstado().equals(jugador)) return true;
+
+        if (tablero[0][2].getEstado().equals(jugador) &&
+            tablero[1][1].getEstado().equals(jugador) &&
+            tablero[2][0].getEstado().equals(jugador)) return true;
+
+        return false;
+    }
+	
+	private boolean tableroLleno() {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                if (tablero[i][j].getEstado().equals("")) return false;
+        return true;
+    }
+
+    private void reiniciarTablero() {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                tablero[i][j].reiniciar();
+        turnoX = true;
+    }
+    
 }
