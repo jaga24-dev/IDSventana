@@ -1,7 +1,6 @@
 package Ventana;
 
-import Views.AuthViews;
-
+import Controllers.AuthController;
 
 public class Main {
 
@@ -11,6 +10,7 @@ public class Main {
 		//miventana.calculadora();
 		//miventana.registro();
 		//miventana.users();
-		AuthViews auth = new AuthViews(); 
+		AuthController control = new AuthController(); 
+		control.login();
 	}
 }
