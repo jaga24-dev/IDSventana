@@ -14,23 +14,29 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Controllers.AuthController;
+import Controllers.HomeController;
+import Models.AuthModel;
 
 
 public class AuthViews {
 	
 	private AuthController control;
+	private AuthModel model;
 	
 	public AuthViews(AuthController control) { 
 		//this.menu(); 
 		//this.router("registro");
 		
 		this.control = control;
+		
 	}
 	
 	public void loginview() {
@@ -87,7 +93,7 @@ public class AuthViews {
 		user_pass.setFont(new Font("Arial",Font.BOLD,17));
 		contenedor.add(user_pass);
 		
-		JTextField userpass= new JTextField();
+		JPasswordField userpass= new JPasswordField();
 		userpass.setSize(300, 30);
 		userpass.setLocation(30,210);
 		userpass.setFont(new Font("Arial",Font.BOLD,22));
@@ -100,25 +106,46 @@ public class AuthViews {
 		acceder.setSize(180, 50);
 		acceder.setFont(new Font("Arial",Font.BOLD,22));
 		contenedor.add(acceder);
-		
+		model = new AuthModel();
 		acceder.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String username_val=username.getText();
-				String userpass_val=userpass.getText();
+				String userpass_val=new String(userpass.getPassword());
+				Boolean flag1 = false, flag2 = false;
+				
 				if(username_val.equals("")) {
 					username.setBorder(BorderFactory.createLineBorder(Color.red, 3, true));
 				}
-				else
+				else {
 					username.setBorder(BorderFactory.createLineBorder(Color.green, 3, true));
+					flag1 = true;
+				}
 				
 				if(userpass_val.equals("")) {
 					userpass.setBorder(BorderFactory.createLineBorder(Color.red, 3, true));
 				}
-				else
+				else {
 					userpass.setBorder(BorderFactory.createLineBorder(Color.green, 3, true));
+					flag2 = true;
+				}
+				if(flag1 && flag2) { 
+					
+					if( model.login(username_val, userpass_val) ) {
+						JOptionPane.showMessageDialog(null, "Bienvenido.");
+						
+						ventana.dispose();
+						
+						HomeController hm = new HomeController();
+						hm.home();
+					}else {
+						JOptionPane.showMessageDialog(null, "Error al acceder","verifique su información",JOptionPane.WARNING_MESSAGE);
+					}
+					
+					
+				}	
 				
 			}
 		});
