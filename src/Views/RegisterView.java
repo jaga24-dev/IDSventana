@@ -14,19 +14,23 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Controllers.AuthController;
+import Models.AuthModel;
 
 public class RegisterView {
 	
 	private AuthController control;
-	
+	private AuthModel model;
 	public RegisterView(AuthController control) {
         this.control = control;
+        model=new AuthModel();
     }
 	
 	public void registerView() {
@@ -60,33 +64,70 @@ public class RegisterView {
 		titulo.setFont(new Font("Arial", Font.BOLD, 28));
 		titulo.setForeground(Color.BLACK); register_container.add(titulo);
 				
-		// Nombre de usuario 
-		JLabel user_tag = new JLabel("NOMBRE DE USUARIO:"); 
-		user_tag.setBounds(100, 60, 250, 30); 
-		user_tag.setFont(new Font("Arial", Font.BOLD, 18)); 
-		register_container.add(user_tag);
+		// Nombre
+		JLabel nombreField = new JLabel("Nombre:"); 
+		nombreField.setBounds(100, 60, 250, 30); 
+		nombreField.setFont(new Font("Arial", Font.BOLD, 18)); 
+		register_container.add(nombreField);
 
 		JTextField new_user = new JTextField(); 
 		new_user.setBounds(100, 90, 300, 30);
 		new_user.setFont(new Font("Arial", Font.PLAIN, 14));
 		new_user.setForeground(Color.GRAY);
 		register_container.add(new_user);
+		
+		// ---------- Campo Correo ----------
+		JLabel correoPanel = new JLabel("Correo electrónico");
+	    correoPanel.setFont(new Font("Arial", Font.BOLD, 18));
+	    correoPanel.setBounds(100, 130, 300, 30); 
+	    register_container.add(correoPanel);
 
-		// BIO 
-		JLabel bio_tag = new JLabel("BIO"); 
-		bio_tag.setBounds(100, 130, 250, 30); 
-		bio_tag.setFont(new Font("Arial", Font.BOLD, 18)); 
-		register_container.add(bio_tag); 
-				
-		JTextArea bio = new JTextArea(); 
-		bio.setBounds(100, 160, 300, 100);
-		bio.setFont(new Font("Arial", Font.PLAIN, 14)); 
-		bio.setForeground(Color.GRAY); 
-		bio.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
-		register_container.add(bio);
+	    JTextField correoField = new JTextField();
+	    correoField.setBounds(100, 160, 300, 30);
+	    correoField.setFont(new Font("Arial", Font.PLAIN, 14));
+	    correoField.setForeground(Color.GRAY);
+	    correoPanel.add(correoField);
+
+	    register_container.add(correoField);
+	    
+	 // ---------- Campo Contraseña ----------
+	    JLabel pass = new JLabel("Contraseña");
+	    pass.setFont(new Font("Arial", Font.BOLD, 18));
+	    pass.setBounds(100, 200, 300, 30); 
+	    register_container.add(pass);
+
+	    JPasswordField passwordField = new JPasswordField();
+	    passwordField.setBounds(100, 230, 300, 30);
+	    passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+	    passwordField.setForeground(Color.GRAY);
+	    register_container.add(passwordField);
+	    
+	 // ultimo Nombre
+	    JLabel ultilabel = new JLabel("Ultimo nombre:"); 
+	    ultilabel.setBounds(100, 270, 300, 30); 
+	    ultilabel.setFont(new Font("Arial", Font.BOLD, 18)); 
+	 	register_container.add(ultilabel);
+
+	 	JTextField ultiField = new JTextField(); 
+	 	ultiField.setBounds(100, 300, 300, 30);
+	 	ultiField.setFont(new Font("Arial", Font.PLAIN, 14));
+	 	ultiField.setForeground(Color.GRAY);
+	 	register_container.add(ultiField);
+	 	
+	 // ultimo Nombre
+	    JLabel Phonelabel = new JLabel("Telefono:"); 
+	    Phonelabel.setBounds(100, 340, 300, 30); 
+	    Phonelabel.setFont(new Font("Arial", Font.BOLD, 18)); 
+	 	register_container.add(Phonelabel);
+
+	 	JTextField phoneField = new JTextField(); 
+	 	phoneField.setBounds(100, 370, 300, 30);
+	 	phoneField.setFont(new Font("Arial", Font.PLAIN, 14));
+	 	phoneField.setForeground(Color.GRAY);
+	 	register_container.add(phoneField);
 				
 		// Preferencias 
-		JLabel pref_tag = new JLabel("PREFERENCIAS", JLabel.CENTER); 
+		/*JLabel pref_tag = new JLabel("PREFERENCIAS", JLabel.CENTER); 
 		pref_tag.setBounds(100, 270, 250, 30); 
 		pref_tag.setFont(new Font("Arial", Font.BOLD, 18)); 
 		register_container.add(pref_tag); 
@@ -136,7 +177,7 @@ public class RegisterView {
 		String[] colonias = {"Camino Real", "La Fuente", "Villas"}; 
 		JComboBox<String> list = new JComboBox<>(colonias);
 		list.setBounds(150, 400, 200, 30); 
-		register_container.add(list); 
+		register_container.add(list); */
 				
 		// Botón 
 		JButton crearCuenta = new JButton("Crear cuenta"); 
@@ -151,35 +192,76 @@ public class RegisterView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String username_val=new_user.getText();
-				String userbio_val=bio.getText();
-				if(username_val.equals("")) {
-					new_user.setBorder(BorderFactory.createLineBorder(Color.red, 3, true));
-				}
-				else
-					new_user.setBorder(BorderFactory.createLineBorder(Color.green, 3, true));
-				
-				if(userbio_val.equals("")) {
-					bio.setBorder(BorderFactory.createLineBorder(Color.red, 3, true));
-				}
-				else
-					bio.setBorder(BorderFactory.createLineBorder(Color.green, 3, true));
-				// Validación de términos
-		        if(!accept_terms.isSelected()) {
-		            accept_terms.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-		            accept_terms.setBorderPainted(true);
+				boolean valido = true;
+
+		        String nombre = new_user.getText().trim();
+		        String correo = correoField.getText().trim();
+		        String password = new String(passwordField.getPassword()).trim();
+		        String ultinombre = ultiField.getText().trim();
+		        String telefono = phoneField.getText().trim();
+
+		        if (nombre.isEmpty()) {
+		            nombreField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            valido = false;
 		        } else {
-		            accept_terms.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-		            accept_terms.setBorderPainted(true);
+		            nombreField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+		        }
+
+		        if (correo.isEmpty() || !correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+		            correoField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            valido = false;
+		        } else {
+		            correoField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+		        }
+
+		        if (password.isEmpty() || password.length() < 5) {
+		            passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            valido = false;
+		        } else {
+		            passwordField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		        }
 		        
-		     // Validación de preferencias
-		        if(!healthy.isSelected()) {
-		            healthy.setBorder(BorderFactory.createLineBorder(Color.red, 3));
-		            healthy.setBorderPainted(true);
+		        if (ultinombre.isEmpty()) {
+		        	ultiField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            valido = false;
 		        } else {
-		            healthy.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-		            healthy.setBorderPainted(true);
+		        	ultiField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+		        }
+		        
+		        if (telefono.isEmpty() || telefono.length() < 10) {
+		        	phoneField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		            valido = false;
+		        } else {
+		        	phoneField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+		        }
+
+		        if (valido) {
+		        	String resultado = model.registro(correo, password, nombre, ultinombre, telefono);
+		        	if( resultado.equals("exito") ) {
+		        		JOptionPane.showMessageDialog(
+		    	                null,
+		    	                "Registro exitoso\n\n" +
+		    	                "Nombre: " + nombre + "\n" +
+		    	                "Correo: " + correo + "\n" +
+				        		"Contraseña: " + password + "\n" +
+				        		"Ultimo nombre: " + ultinombre + "\n" +
+						        "Telefono: " + telefono,
+		    	                "Éxito",
+		    	                JOptionPane.INFORMATION_MESSAGE
+		    	           );
+		        		//router("login");
+			            ventana.dispose();
+						control.login();
+		        	}
+		        	if( resultado.equals("duplica") ) {
+		        		correoField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		        		JOptionPane.showMessageDialog(null, "El correo ya está registrado", "Error", JOptionPane.WARNING_MESSAGE);
+		        	}
+		        	
+		        	if( resultado.equals("general") ) {
+		        		 JOptionPane.showMessageDialog(null, "Error inesperado. Intente más tarde.", "Error", JOptionPane.ERROR_MESSAGE);
+		        	}
+		            
 		        }
 			}
 		});

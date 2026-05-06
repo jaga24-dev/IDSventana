@@ -1,10 +1,12 @@
-package Models;
+ package Models;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+
 
 public class AuthModel {
 	public AuthModel() {
@@ -56,5 +58,47 @@ public class AuthModel {
 			} catch (Exception e) {}
 		}
 		return false; 
+	}
+	
+	public String registro(String correo, String pass, String nombre, String last_nombre, String celular) {
+		
+		String query = "INSERT INTO users (email, password, name, lastname, phone)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?)";
+		
+		Connection conn = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(
+				"jdbc:mysql://127.0.0.1:3308/aimep3tm",
+			    "root",
+			    ""
+			);
+			
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, correo);
+			ps.setString(2, pass);
+			ps.setString(3, nombre);
+			ps.setString(4, last_nombre);
+			ps.setString(5, celular);
+			
+			int rowsAffected = ps.executeUpdate();
+			
+			
+			if( rowsAffected > 0) {
+				ps.close();
+				conn.close();
+				return "exito";
+			}
+			
+		} catch (SQLIntegrityConstraintViolationException e) {
+	        // email ya existe por la restricción UNIQUE
+	        return "duplica";
+	    }catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return "general";
 	}
 }
