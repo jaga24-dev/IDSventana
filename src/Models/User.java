@@ -74,6 +74,27 @@ public class User {
     	return users;
     }
 
+	public boolean registrarUsuario(User u) {
+		String query = "INSERT INTO users (email, password, name, lastname, phone)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?)";
+	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/aimep3tm", "root", "");
+	         PreparedStatement ps = conn.prepareStatement(query)) {
+
+	        ps.setString(3, u.getName());
+	        ps.setString(4, u.getLast_name());
+	        ps.setString(1, u.getEmail());
+	        ps.setString(5, u.getPhone());
+	        ps.setString(2, u.getPassword());
+
+	        int rows = ps.executeUpdate();
+	        return rows > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
 	public int getId() {
 		return id;
 	}
