@@ -26,11 +26,16 @@ public class AuthModel {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-		    conn = DriverManager.getConnection(
+		    /*conn = DriverManager.getConnection(
 		        "jdbc:mysql://127.0.0.1:3308/aimep3tm",
 		        "root",
 		        ""
-		    );
+		    );*/
+			conn = DriverManager.getConnection(
+			        "jdbc:mysql://sql.freedb.tech:3306/freedb_3GfY7lZI",
+			        "u_HNP5x4",
+			        "RjjrruOseiTY"
+			);
 
 		    PreparedStatement ps = conn.prepareStatement(query);
 		    ps.setString(1, email);
@@ -70,10 +75,15 @@ public class AuthModel {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			conn = DriverManager.getConnection(
+			/*conn = DriverManager.getConnection(
 				"jdbc:mysql://127.0.0.1:3308/aimep3tm",
 			    "root",
 			    ""
+			);*/
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://sql.freedb.tech:3306/freedb_3GfY7lZI",
+			        "u_HNP5x4",
+			        "RjjrruOseiTY"
 			);
 			
 			PreparedStatement ps = conn.prepareStatement(query);

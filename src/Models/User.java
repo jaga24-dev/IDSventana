@@ -41,10 +41,15 @@ public class User {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		
-			conn = DriverManager.getConnection(
+			/*conn = DriverManager.getConnection(
 					"jdbc:mysql://127.0.0.1:3308/aimep3tm",
 					"root",
 					""
+			);*/
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://sql.freedb.tech:3306/freedb_3GfY7lZI",
+			        "u_HNP5x4",
+			        "RjjrruOseiTY"
 			);
 			
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -77,7 +82,11 @@ public class User {
 	public boolean registrarUsuario(User u) {
 		String query = "INSERT INTO users (email, password, name, lastname, phone)\r\n"
 				+ "VALUES (?, ?, ?, ?, ?)";
-	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/aimep3tm", "root", "");
+	    try (Connection conn = DriverManager.getConnection(/*"jdbc:mysql://127.0.0.1:3308/aimep3tm", "root", ""*/
+						"jdbc:mysql://sql.freedb.tech:3306/freedb_3GfY7lZI",
+				        "u_HNP5x4",
+				        "RjjrruOseiTY"
+				);
 	         PreparedStatement ps = conn.prepareStatement(query)) {
 
 	        ps.setString(3, u.getName());
